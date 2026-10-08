@@ -24,7 +24,6 @@
 
         static void Main(string[] args)
         {
-
            // Program program = new Program();
             while (true)
             {
@@ -42,11 +41,9 @@
 
                 switch (choice)
                 {
-
                     case "1":
                         {
-                            AddTodo();
-                           
+                            AddTodo();                          
                             Console.ReadLine();
                             break;
                         }
@@ -77,9 +74,7 @@
                     default:
                         {
                             Console.WriteLine("Невалиден избор.");
-
                             break;
-
                         }
                 }
 
@@ -106,8 +101,8 @@
                     deleteTask = todoItem;
                     break;
                 }
-
             }
+
             if (deleteTask != null)
             {
                 tasks.Remove(deleteTask);
@@ -126,8 +121,10 @@
             {
                 Console.WriteLine($"{todoItem.Id}. {todoItem.Title}");
             }
+
             Console.Write("Избери Id: ");
             int id = int.Parse(Console.ReadLine());
+
             TodoItem completedTask = null;
 
             foreach (TodoItem todoItem in tasks)
