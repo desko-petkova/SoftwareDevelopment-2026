@@ -25,8 +25,8 @@
 
 ### Задача 1 — int.TryParse()
 Въведете възраст.
-Console.Write("Възраст: ");
 ```csharp
+Console.Write("Възраст: ");
 if (int.TryParse(Console.ReadLine(), out int age))
 {
     Console.WriteLine($"Възраст: {age}");
@@ -75,12 +75,9 @@ decimal.TryParse(...)
 
 
 ### Задача 5 — bool.TryParse()
+Въведете: true
+или: false
 
-Въведете:
-true
-
-или:
-false
 ```csharp
 if (bool.TryParse(Console.ReadLine(), out bool hasScholarship))
 {
@@ -88,11 +85,8 @@ if (bool.TryParse(Console.ReadLine(), out bool hasScholarship))
 }
 `````
 -----
-След това опитайте:
-да
-
-и:
-не
+След това опитайте: да
+и: не
 
 ### Задача 6 — char.TryParse()
 Въведете буква на паралелката:
@@ -155,15 +149,30 @@ while (true)
 ````
 ----
 Направете същото и за възрастта.
-Задача 9 — по-кратък вариант
+
+### Задача 9 — по-кратък вариант
 Може да се използва и:
-int age;
 ```csharp
+int age;
 while (!int.TryParse(Console.ReadLine(), out age))
 {
     Console.WriteLine("Въведете цяло число:");
 }
 
+```
+---
+
+### Задача 10 - string.IsNullOrEmpty()
+Въведи име.
+```csharp
+Console.Write("Въведи име: ");
+string name = Console.ReadLine();
+while ( string.IsNullOrEmpty(name))
+{
+    Console.WriteLine("Името не може да е празен символен низ.");
+    Console.Write("Въведи име: ");
+    name = Console.ReadLine();
+}
 ```
 ---
 ## Основна задача

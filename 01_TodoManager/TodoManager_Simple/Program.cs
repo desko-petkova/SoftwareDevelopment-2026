@@ -10,6 +10,7 @@
 
         public TodoItem(int id, string title, string description, DateTime dueDate)
         {
+            
             Id = id;
             Title = title;
             Description = description;
@@ -186,6 +187,7 @@
             DateTime dueDate = DateTime.Parse(Console.ReadLine());
 
             TodoItem todoItem = new TodoItem(nextId, title, description, dueDate);
+
             tasks.Add(todoItem);
             nextId++;
             Console.WriteLine("Задачата е добавена.");
