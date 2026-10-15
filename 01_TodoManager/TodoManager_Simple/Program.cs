@@ -9,8 +9,7 @@
         public bool IsCompleted { get; set; }
 
         public TodoItem(int id, string title, string description, DateTime dueDate)
-        {
-            
+        {           
             Id = id;
             Title = title;
             Description = description;
