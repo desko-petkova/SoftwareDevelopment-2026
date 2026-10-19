@@ -2,19 +2,32 @@
 {
     public class TodoItem
     {
+        private int id;
+        private string title;
+        private string description;
+        private DateTime dueDate;
+        private bool isCompleted;
         public int Id { get; set; }
-        public string Title { get; set; }
+        public string Title { get; set; } 
+        
         public string Description { get; set; }
         public DateTime DueDate { get; set; }
         public bool IsCompleted { get; set; }
 
         public TodoItem(int id, string title, string description, DateTime dueDate)
-        {           
+        {
+            if (id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(id), "Id трябва да е положително число");
+            
+            if(string.IsNullOrEmpty(title)) 
+                throw new ArgumentNullException("Заглавието е задължително");
+
             Id = id;
             Title = title;
             Description = description;
             DueDate = dueDate;
             IsCompleted = false;
+
         }
     }
     internal class Program
@@ -38,47 +51,53 @@
                 Console.WriteLine();
                 Console.Write("Избор: ");
                 string choice = Console.ReadLine();
-
-                switch (choice)
+                try
                 {
-                    case "1":
-                        {
-                            AddTodo();                          
-                            Console.ReadLine();
-                            break;
-                        }
-                    case "2":
-                        {
-                            ListAllTodos();                            
-                            Console.ReadLine();
-                            break;
-                        }
-                    case "3":
-                        {
-                            CompleteTodo();                           
-                            Console.ReadLine();
-                            break;
-                        }
-                    case "4":
-                        {
-                            DeleteTodo();                           
-                            Console.ReadLine();
-                            break;
-                        }
-                    case "x":
-                        {
-                            Console.WriteLine("Край на програмата");
-                            Console.ReadLine();
-                            return;
-                        }
-                    default:
-                        {
-                            Console.WriteLine("Невалиден избор.");
-                            break;
-                        }
+                    switch (choice)
+                    {
+                        case "1":
+                            {
+                                AddTodo(); Console.ReadLine();
+                                break;
+                            }
+                        case "2":
+                            {
+                                ListAllTodos(); Console.ReadLine();
+                                break;
+                            }
+                        case "3":
+                            {
+                                CompleteTodo(); Console.ReadLine();
+                                break;
+                            }
+                        case "4":
+                            {
+                                DeleteTodo(); Console.ReadLine();
+                                break;
+                            }
+                        case "x":
+                            {
+                                Console.WriteLine("Край на програмата");
+                                Console.ReadLine();
+                                return;
+                            }
+                        default:
+                            {
+                                Console.WriteLine("Невалиден избор.");
+                                break;
+                            }
+                    }
                 }
-
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Console.WriteLine(ex.Message);
             }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+        }
         }
 
         private static void DeleteTodo()
@@ -184,12 +203,15 @@
 
             Console.Write("Краен срок:");
             DateTime dueDate = DateTime.Parse(Console.ReadLine());
+           
+                TodoItem todoItem = new TodoItem(nextId, title, description, dueDate);
+                tasks.Add(todoItem);
+                nextId++;
+                Console.WriteLine("Задачата е добавена.");
 
-            TodoItem todoItem = new TodoItem(nextId, title, description, dueDate);
-
-            tasks.Add(todoItem);
-            nextId++;
-            Console.WriteLine("Задачата е добавена.");
+            
+           
+           
         }
     }
 }
