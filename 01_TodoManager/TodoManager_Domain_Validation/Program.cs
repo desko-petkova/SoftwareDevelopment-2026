@@ -2,7 +2,7 @@
 {
     internal class Program
     {
-        private static List<TodoItem> tasks = new List<TodoItem>();
+        private readonly static List<TodoItem> tasks = new List<TodoItem>();
         private static int nextId = 1;
 
         static void Main(string[] args)
@@ -25,23 +25,28 @@
                 {
                     switch (choice)
                     {
-                        case "1":{AddTodo(); Console.ReadLine();break;}
-                        case "2":{ListAllTodos(); Console.ReadLine();break;}
-                        case "3":{CompleteTodo(); Console.ReadLine();break;}
-                        case "4":{DeleteTodo(); Console.ReadLine();break;}
-                        case "x":{Console.WriteLine("Край на програмата");Console.ReadLine();return;}
-                        default:{Console.WriteLine("Невалиден избор.");break;}
+                        case "1": { AddTodo(); break; }
+                        case "2": { ListAllTodos(); break; }
+                        case "3": { CompleteTodo();  break; }
+                        case "4": { DeleteTodo();  break; }
+                        case "x": { Console.WriteLine("Край на програмата"); Console.ReadLine(); return; }
+                        default: { Console.WriteLine("Невалиден избор."); break; }
                     }
                 }
                 catch (ArgumentOutOfRangeException ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
+                catch (InvalidOperationException ex)
+                {
+                    Console.WriteLine(ex.Message);
+
+                }
                 catch (ArgumentException ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
-                
+                Console.ReadLine();
             }
         }
 
@@ -49,12 +54,9 @@
         {
             Console.Clear();
             Console.WriteLine();
-            Console.WriteLine("=====  Изтрий задача =======");
+            Console.WriteLine("=====  Изтрий задача =======\n");
+            ListAllTodos();
 
-            foreach (TodoItem todoItem in tasks)
-            {
-                Console.WriteLine($"{todoItem.Id}. {todoItem.Title}");
-            }
             Console.Write("Избери Id: ");
             int id;
             while (!int.TryParse(Console.ReadLine(), out id))
@@ -62,24 +64,11 @@
                 Console.WriteLine("Невалидно id.");
                 Console.Write("Избери Id: ");
             }
-            TodoItem deleteTask = null;
 
-            foreach (TodoItem todoItem in tasks)
-            {
-                if (todoItem.Id == id)
-                {
-                    deleteTask = todoItem;
-                    break;
-                }
-            }
+            TodoItem deleteTask = FindById(id);
 
-            if (deleteTask != null)
-            {
-                tasks.Remove(deleteTask);
-                Console.WriteLine("Задачата е изтрита.");
-            }
-            else
-                Console.WriteLine("Няма задача с такова ID");
+            tasks.Remove(deleteTask);
+            Console.WriteLine("Задачата е изтрита.");
 
         }
 
@@ -87,46 +76,21 @@
         {
             Console.Clear();
             Console.WriteLine();
-            Console.WriteLine("=====  Маркирай задача като завършена =======");
-            foreach (TodoItem todoItem in tasks)
-            {
-                Console.WriteLine($"{todoItem.Id}. {todoItem.Title}");
-            }
+            Console.WriteLine("=====  Маркирай задача като завършена =======\n");
+            ListAllTodos();
 
             Console.Write("Избери Id: ");
             int id;
-            while(!int.TryParse(Console.ReadLine(), out id))
+            while (!int.TryParse(Console.ReadLine(), out id))
             {
                 Console.WriteLine("Невалидно id.");
                 Console.Write("Избери Id: ");
             }
-            TodoItem completedTask = null;
 
-            foreach (TodoItem todoItem in tasks)
-            {
-                if (todoItem.Id == id)
-                {
-                    completedTask = todoItem;
-                    break;
-                }
+            TodoItem completedTask = FindById(id);
+            completedTask.Completed();
+            Console.WriteLine("Задачата е завършена.");
 
-            }
-
-            if (completedTask != null)
-            {
-                try
-                {
-                    completedTask.Completed();
-                    Console.WriteLine("Задачата е завършена.");
-                }
-                catch(InvalidOperationException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-               
-            }
-            else
-                Console.WriteLine("Няма задача с такова ID");
 
         }
 
@@ -147,6 +111,24 @@
                     Console.WriteLine($"{todoItem}");
                 }
             }
+        }
+
+        static TodoItem FindById(int id)
+        {
+            TodoItem targetTodo = null;
+            foreach (TodoItem todoItem in tasks)
+            {
+                if (todoItem.Id == id)
+                {
+                    targetTodo = todoItem;
+                    break;
+                }
+
+            }
+            if (targetTodo == null)
+                throw new ArgumentException("Няма задача с такова ID");
+
+            return targetTodo;
         }
 
         private static void AddTodo()
@@ -173,7 +155,7 @@
             tasks.Add(todoItem);
             nextId++;
             Console.WriteLine("Задачата е добавена.");
-
+          
         }
     }
 }
