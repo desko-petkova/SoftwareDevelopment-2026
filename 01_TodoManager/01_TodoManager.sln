@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoManager_Simple", "TodoM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoManager_Domain_Validation", "TodoManager_Domain_Validation\TodoManager_Domain_Validation.csproj", "{147D60C6-9EFE-4AF4-9563-DDAACAD3819A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoManager_Service_layer", "TodoManager_Service_layer\TodoManager_Service_layer.csproj", "{2D90C65C-2F77-4D6F-9E2B-404463396732}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{147D60C6-9EFE-4AF4-9563-DDAACAD3819A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{147D60C6-9EFE-4AF4-9563-DDAACAD3819A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{147D60C6-9EFE-4AF4-9563-DDAACAD3819A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D90C65C-2F77-4D6F-9E2B-404463396732}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D90C65C-2F77-4D6F-9E2B-404463396732}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D90C65C-2F77-4D6F-9E2B-404463396732}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D90C65C-2F77-4D6F-9E2B-404463396732}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
